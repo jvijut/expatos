@@ -1,210 +1,178 @@
-# ExpatOS - AI Memory and Assistant for Global Citizens
+# 🚀 ExpatOS - AI-Powered Expat Document Management Platform
 
-> "All Your Important Life Admin—Sorted, Reminded, and Ready—No Matter Where You Call Home."
-
-## 🚀 Overview
-
-ExpatOS is a unified digital command center that empowers global citizens to track, organize, and act on all their most critical admin tasks using AI automation and smart memory features.
+## 🎯 Overview
+ExpatOS is an intelligent document management platform designed specifically for expatriates living abroad. It uses AI to analyze document dependencies, predict renewal requirements, and provide proactive alerts to prevent legal issues.
 
 ## ✨ Key Features
 
-### 🧠 AI-Powered Document Management
-- **Centralized Dashboard**: See every deadline (visa/ID/passport, taxes, health insurance, rent) by country
-- **AI Memory**: Drop in files, screenshots, links, or copy-pasted info. ExpatOS uses AI-powered tagging and metadata extraction
-- **Natural Language Search**: Instantly recall documents with queries like "Show the document I need for my next Emirates ID renewal"
+### 🤖 AI-Powered Analysis
+- **Document Health Score**: Real-time analysis of document status with visual progress indicators
+- **Dependency Mapping**: Visual representation of how documents depend on each other
+- **Proactive Alerts**: Intelligent notifications before issues occur
+- **Smart Recommendations**: AI-driven action plans for document renewal
 
-### 🔗 Smart Dependency Mapping
-- **AI Dependency Graph**: Automatically maps document relationships (e.g., visa renewal requires valid passport with 6+ months validity)
-- **Proactive Alerts**: Get warned about dependency issues before they become problems
-- **Document Chain Validation**: AI checks if you CAN legally renew based on all dependencies
+### 📄 Document Management
+- **Complete CRUD Operations**: Upload, edit, delete documents with full validation
+- **Smart Categorization**: Automatic document type recognition and organization
+- **Search & Filter**: Advanced document discovery with multiple filters
+- **File Upload**: Drag-and-drop document upload with preview
+
+### ✈️ Travel Planning
+- **Trip Management**: Plan and organize travel itineraries with dates
+- **Flight Management**: Add, edit, and track flight details (airline, times, prices)
+- **Visa Requirements**: Automatic visa requirement checking per destination
+- **Cost Tracking**: Monitor travel expenses and visa costs
 
 ### 👨‍👩‍👧‍👦 Family Management
-- **Multi-Person Tracking**: Manage spouse + kids' documents in one place
-- **Cascading Dependencies**: Family member document dependencies are tracked together
-- **Individual Dashboards**: Each family member gets their own document overview
+- **Family Profiles**: Manage documents for entire family members
+- **Relationship Tracking**: Spouse, children, dependents with proper categorization
+- **Individual Status**: Per-person document monitoring and alerts
+- **Bulk Operations**: Manage multiple family members efficiently
 
-### 🔍 Advanced Search & Organization
-- **Semantic Search**: Find documents using natural language queries
-- **Smart Tagging**: AI automatically tags documents for easy discovery
-- **Timeline View**: Visual timeline of all renewals and deadlines
+### 🛡️ Visa Tracking
+- **Status Monitoring**: Real-time visa status updates and tracking
+- **Renewal Timelines**: Automatic renewal date calculations with countdown
+- **Cost Estimation**: Budget planning for visa renewals
+- **Timeline Visualization**: Clear renewal schedules and deadlines
+
+### 🔔 Notification System
+- **Real-time Alerts**: Instant notifications for critical document issues
+- **Count Badges**: Visual notification count in header toolbar
+- **Severity Levels**: Critical, warning, and info notifications with color coding
+- **Mark as Read**: Individual and bulk notification management
+
+### ⚙️ Settings & Profile
+- **User Profile Management**: Complete personal information management
+- **Account Settings**: Customizable preferences and notifications
+- **Data Management**: Export and backup options
+- **Security Settings**: Privacy and data protection controls
+
+## 🎬 Demo Features
+
+### 🎯 AI Transformation Demo
+The application includes a powerful demo mode that showcases AI capabilities:
+1. **Initial State**: Shows 45% health score with critical alerts
+2. **Demo Action**: Click the green "Demo: Upload New Passport" button
+3. **AI Transformation**: Watch health score improve from 45% to 85%
+4. **Alert Resolution**: See critical alerts disappear as dependencies are resolved
+5. **Visual Impact**: Dependency graph turns green showing successful resolution
 
 ## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14 (App Router) with TypeScript
-- **UI**: Tailwind CSS + shadcn/ui components
-- **Database**: Supabase (PostgreSQL + Authentication + File Storage)
-- **ORM**: Prisma for type-safe database operations
-- **AI**: OpenAI GPT-4 for document analysis and dependency mapping
-- **File Upload**: Uploadthing for secure file handling
-- **OCR**: Tesseract.js for document text extraction
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **Styling**: Tailwind CSS, Radix UI components
+- **Icons**: Lucide React icon library
+- **AI Analysis**: Custom dependency analysis engine
+- **State Management**: React hooks (useState, useEffect)
+- **File Handling**: React Dropzone for file uploads
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
 - npm or yarn
-- Supabase account
-- OpenAI API key
 
 ### Installation
+```bash
+# Clone the repository
+git clone https://github.com/jvijut/expatos.git
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd expatos
-   ```
+# Navigate to project directory
+cd expatos
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Install dependencies
+npm install
 
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Fill in your environment variables:
-   ```env
-   # Database
-   DATABASE_URL="your-postgresql-connection-string"
-   
-   # Supabase
-   NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
-   NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-   SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
-   
-   # OpenAI
-   OPENAI_API_KEY="your-openai-api-key"
-   
-   # Uploadthing
-   UPLOADTHING_SECRET="your-uploadthing-secret"
-   UPLOADTHING_APP_ID="your-uploadthing-app-id"
-   ```
-
-4. **Set up the database**
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
-
-5. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 📁 Project Structure
-
-```
-expatos/
-├── src/
-│   ├── app/                 # Next.js app router pages
-│   ├── components/          # React components
-│   │   ├── ui/             # shadcn/ui components
-│   │   ├── DocumentUpload.tsx
-│   │   ├── DocumentSearch.tsx
-│   │   ├── DependencyMap.tsx
-│   │   └── FamilyManagement.tsx
-│   ├── lib/                # Utility functions
-│   │   ├── supabase.ts     # Supabase client
-│   │   ├── prisma.ts       # Prisma client
-│   │   └── utils.ts        # General utilities
-│   └── types/              # TypeScript type definitions
-├── prisma/
-│   └── schema.prisma       # Database schema
-└── public/                 # Static assets
+# Run development server
+npm run dev
 ```
 
-## 🎯 Core Features Implementation
+The application will be available at `http://localhost:3000`
 
-### Document Upload
-- Drag & drop file upload with validation
-- Support for PDF, PNG, JPG files
-- Automatic OCR text extraction
-- AI-powered metadata extraction
+### Demo Mode
+To experience the AI transformation:
+1. Navigate to the dashboard
+2. Observe the 45% health score and critical alerts
+3. Click the green "Demo: Upload New Passport" button
+4. Watch the AI analysis transform the dashboard
+5. See alerts disappear and health score improve
 
-### Dependency Mapping
-- Real-time analysis of document relationships
-- Critical dependency warnings
-- Renewal timeline visualization
-- Smart alert system
+## 🎯 Core Functionality
 
-### Natural Language Search
-- Semantic search across all documents
-- AI-powered relevance scoring
-- Context-aware results
-- Search history tracking
+### Document Types Supported
+- **Passports**: International travel documents
+- **Visa Documents**: Residence permits and work visas
+- **Emirates ID**: UAE national identification
+- **Ejari**: UAE rental agreements
+- **Health Insurance**: Medical coverage documents
+- **Custom Documents**: Any additional document types
 
-### Family Management
-- Add/edit/delete family members
-- Individual document tracking
-- Family-wide dependency analysis
-- Bulk operations support
+### AI Analysis Features
+- **Dependency Detection**: Identifies relationships between documents
+- **Expiry Analysis**: Calculates days until expiration
+- **Renewal Requirements**: Determines what documents need renewal
+- **Critical Path Analysis**: Shows which documents affect others
+- **Health Score Calculation**: Overall document status assessment
 
-## 🔒 Security & Privacy
+## 📱 Screenshots
 
-- **Encryption**: All documents encrypted at rest
-- **No External Sharing**: Documents never shared with third parties
-- **Secure Storage**: Files stored securely in Supabase
-- **Access Control**: User-based document access
+### Dashboard Overview
+- Document health score with visual progress indicator
+- Real-time statistics and alerts
+- Quick action buttons and navigation
 
-## 🚀 Deployment
+### Document Management
+- Clean, organized document grid
+- Search and filter functionality
+- Edit and delete operations
 
-### Vercel (Recommended)
-1. Connect your GitHub repository to Vercel
-2. Add environment variables in Vercel dashboard
-3. Deploy automatically on every push
+### AI Demo Transformation
+- Before: 45% health score with critical alerts
+- After: 85% health score with resolved dependencies
 
-### Other Platforms
-- **Railway**: Great for full-stack deployment
-- **Netlify**: Frontend deployment
-- **DigitalOcean**: Custom server setup
+## 🏆 Hackathon Submission
 
-## 📈 Roadmap
+This project was created for the Cursor Hackathon and demonstrates:
 
-### Phase 1 (Current)
-- ✅ Core document upload and management
-- ✅ AI dependency mapping
-- ✅ Natural language search
-- ✅ Family member management
+### Technical Excellence
+- **Modern Tech Stack**: Latest Next.js and React features
+- **Type Safety**: Full TypeScript implementation
+- **Responsive Design**: Mobile-first, professional UI/UX
+- **Performance**: Optimized rendering and state management
 
-### Phase 2 (Next)
-- 🔄 Authentication system
-- 🔄 Real-time notifications
-- 🔄 Mobile app (React Native)
-- 🔄 Chrome extension
+### Innovation
+- **AI-Powered Analysis**: Unique document dependency mapping
+- **Proactive Alerts**: Prevents problems before they occur
+- **Real-time Updates**: Dynamic, responsive system
+- **Comprehensive Solution**: All-in-one expat document management
 
-### Phase 3 (Future)
-- 📅 Voice-to-memory features
-- 📅 AI summary clusters
-- 📅 Integration with government portals
-- 📅 Multi-language support
+### User Experience
+- **Intuitive Interface**: Clean, professional design
+- **Interactive Demo**: Engaging AI transformation showcase
+- **Complete Workflow**: End-to-end document management
+- **Family Support**: Multi-user document management
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This is a hackathon project, but contributions are welcome! Feel free to:
+- Report bugs or issues
+- Suggest new features
+- Submit pull requests
+- Improve documentation
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see LICENSE file for details
 
-## 🙏 Acknowledgments
+## 👨‍💻 Author
 
-- Built for the global expat community
-- Inspired by the challenges of managing life admin across borders
-- Powered by modern AI and web technologies
+**Jvijut** - Cursor Hackathon 2024
 
-## 📞 Support
+## 🔗 Links
 
-For support, email support@expatos.com or join our community Discord.
+- **Live Demo**: [Deploy to Vercel for live demo]
+- **GitHub Repository**: https://github.com/jvijut/expatos
+- **Demo Video**: [Link to demo video when uploaded]
 
 ---
 
-**Made with ❤️ for Global Citizens**
+**ExpatOS: Transforming how expatriates manage their legal documents through AI-powered intelligence.** 🌍✨
