@@ -1,0 +1,183 @@
+// ExpatOS Database Schema
+// AI Memory and Assistant for Global Citizens
+
+generator client {
+  provider = "prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  documents     Document[]
+  familyMembers FamilyMember[]
+  alerts        Alert[]
+  searches      Search[]
+
+  @@map("users")
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?
+  type        DocumentType
+  country     String
+  fileUrl     String
+  fileName    String
+  fileSize    Int
+  mimeType    String
+  
+  // Document metadata
+  expiryDate    DateTime?
+  issueDate     DateTime?
+  documentNumber String?
+  
+  // AI extracted data
+  extractedText String?
+  aiSummary    String?
+  tags         String[] // Array of tags for searchability
+  
+  // Status tracking
+  status        DocumentStatus @default(ACTIVE)
+  isExpired     Boolean        @default(false)
+  daysUntilExpiry Int?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dependencies DocumentDependency[] @relation("DocumentDependencies")
+  dependents  DocumentDependency[] @relation("DependentDocuments")
+  alerts      Alert[]
+
+  @@map("documents")
+}
+
+model DocumentDependency {
+  id           String @id @default(cuid())
+  documentId   String
+  dependentId  String
+  dependencyType DependencyType
+  description  String?
+  isRequired   Boolean @default(true)
+  
+  createdAt DateTime @default(now())
+
+  // Relations
+  document  Document @relation("DocumentDependencies", fields: [documentId], references: [id], onDelete: Cascade)
+  dependent Document @relation("DependentDocuments", fields: [dependentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, dependentId])
+  @@map("document_dependencies")
+}
+
+model FamilyMember {
+  id        String @id @default(cuid())
+  userId    String
+  name      String
+  relation  String // spouse, child, parent, etc.
+  birthDate DateTime?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents Document[]
+
+  @@map("family_members")
+}
+
+model Alert {
+  id          String      @id @default(cuid())
+  userId      String
+  documentId  String?
+  type        AlertType
+  title       String
+  message     String
+  priority    AlertPriority @default(MEDIUM)
+  isRead      Boolean     @default(false)
+  scheduledFor DateTime?
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document Document? @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("alerts")
+}
+
+model Search {
+  id        String   @id @default(cuid())
+  userId    String
+  query     String
+  results   Json     // Store search results as JSON
+  timestamp DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("searches")
+}
+
+// Enums
+enum DocumentType {
+  PASSPORT
+  VISA
+  EMIRATES_ID
+  DRIVERS_LICENSE
+  EJARI
+  HEALTH_INSURANCE
+  LABOR_CARD
+  BANK_STATEMENT
+  TAX_DOCUMENT
+  BIRTH_CERTIFICATE
+  MARRIAGE_CERTIFICATE
+  OTHER
+}
+
+enum DocumentStatus {
+  ACTIVE
+  EXPIRED
+  RENEWED
+  CANCELLED
+}
+
+enum DependencyType {
+  REQUIRES_VALID_PASSPORT
+  REQUIRES_VALID_VISA
+  REQUIRES_VALID_EJARI
+  REQUIRES_HEALTH_INSURANCE
+  REQUIRES_LABOR_CARD
+  CUSTOM
+}
+
+enum AlertType {
+  EXPIRY_WARNING
+  DEPENDENCY_WARNING
+  RENEWAL_REMINDER
+  DEADLINE_APPROACHING
+  DOCUMENT_MISSING
+  CUSTOM
+}
+
+enum AlertPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
